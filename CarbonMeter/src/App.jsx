@@ -1,7 +1,8 @@
 import React from 'react';
-import './App.css';
 import Header from './Header';
 import Footer from './Footer';
+import CO2Table from './CO2Table';
+import './App.css';
 
 const App = () => {
   return (
@@ -10,7 +11,8 @@ const App = () => {
       <main className="content">
         <div className="centered">
           <h1>Welcome to CarbonMeter</h1>
-          <p>Make Luxembourg pay for its enormous per head emissions!</p>
+          <p>Make Luxembourg pay for its enormous per head emissions</p>
+          <CO2Table /> {/* insert the data table here */}
         </div>
       </main>
       <Footer />
