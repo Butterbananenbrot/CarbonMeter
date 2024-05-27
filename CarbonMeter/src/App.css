@@ -1,20 +1,18 @@
-#root {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+html, body, #root {
+  height: 100%;
   margin: 0;
   padding: 0;
-  text-align: center;
-  width: 100%;
 }
 
 .App {
   display: flex;
   flex-direction: column;
-  width: 100%;
   min-height: 100vh;
+  align-items: center; 
+  justify-content: center;
+  width: 100%; 
+  box-sizing: border-box;
+  text-align: center;
 }
 
 header {
@@ -25,6 +23,10 @@ header {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   box-sizing: border-box;
 }
 
@@ -32,6 +34,12 @@ header .logo {
   height: 2em;
   margin-right: 1em;
   vertical-align: middle;
+  transition: transform 0.3s, filter 0.3s;
+}
+
+header .logo:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.6));
 }
 
 header h1 {
@@ -41,12 +49,20 @@ header h1 {
   font-size: 1.5em;
 }
 
+header nav {
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
 header nav ul {
   list-style: none;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   padding: 0;
   margin: 0;
+  width: 100%;
+  max-width: 600px;
 }
 
 header nav ul li {
@@ -61,23 +77,16 @@ header nav ul li a {
 
 .content {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 2rem;
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
   box-sizing: border-box;
-}
-
-.card {
-  padding: 2em;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  text-align: center;
+  margin-top: 60px;
 }
 
 footer {
@@ -86,5 +95,9 @@ footer {
   color: white;
   text-align: center;
   width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   box-sizing: border-box;
 }

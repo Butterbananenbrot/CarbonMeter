@@ -7,9 +7,11 @@ const App = () => {
   return (
     <div className="App">
       <Header />
-      <main>
-        <h1>Welcome to CarbonMeter</h1>
-        <p>Make Luxembourg pay for its enourmous per head emissions!</p>
+      <main className="content">
+        <div className="centered">
+          <h1>Welcome to CarbonMeter</h1>
+          <p>Make Luxembourg pay for its enormous per head emissions!</p>
+        </div>
       </main>
       <Footer />
     </div>
