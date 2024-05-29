@@ -1,3 +1,4 @@
+
 /* this file provides styles for all components of the app */
 
 /* global styles */
@@ -6,6 +7,7 @@ html, body, #root {
   margin: 0;
   padding: 0;
   font-size: 1rem;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 /* for the app container */
@@ -16,6 +18,7 @@ html, body, #root {
   justify-content: space-between;
   width: 100%;
   padding: 0 1rem;
+  box-sizing: border-box; 
 }
 
 /* for the header */
@@ -33,6 +36,17 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 1rem 2rem;
+  z-index: 1000;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.header-content-rtl {
+  flex-direction: row-reverse;
 }
 
 header .logo {
@@ -42,9 +56,9 @@ header .logo {
   transition: transform 0.3s, filter 0.3s;
 }
 
-header .logo:hover {
-  transform: scale(1.1);
-  filter: drop-shadow(0 4px 8px rgba(255, 255, 255, 0.6));
+.header-content-rtl .logo {
+  margin-right: 0;
+  margin-left: 1em;
 }
 
 header h1 {
@@ -80,7 +94,7 @@ header nav ul li a {
   font-size: 1em;
 }
 
-/* for the main content*/
+/* for the main content */
 .content {
   flex: 1;
   display: flex;
@@ -95,6 +109,7 @@ header nav ul li a {
   text-align: center;
   margin-top: 60px;
   min-height: calc(100vh - 140px);
+  overflow-y: auto;
 }
 
 h1 {
@@ -141,20 +156,23 @@ h1 {
 /* for the table */
 .table-container {
   height: auto;
-  overflow-y: auto;
+  overflow-y: auto;  
+  overflow-x: auto;
   width: 100%;
-  max-width: 1280px;
   margin-top: 20px;
+  margin-bottom: 80px;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
   color: #ffffff;
   background-color: #15274d;
-  overflow-x: auto;
   white-space: nowrap;
+  box-sizing: border-box;
+  margin: 0;
 }
 
 th, td {
@@ -182,7 +200,7 @@ footer {
   box-sizing: border-box;
 }
 
-/* for the search box*/
+/* for the search box */
 input {
   margin-bottom: 10px;
   padding: 8px;
@@ -196,7 +214,7 @@ input {
   display: none;
 }
 
-/* media queries: medium*/
+/* media queries: medium */
 @media (max-width: 768px) {
 
   .subtitle {
@@ -217,6 +235,7 @@ input {
 
   .content {
     padding: 1rem;
+    margin-top: 200px; /* ensure that the header does not cover the content */ 
   }
 
   header {
@@ -245,12 +264,14 @@ input {
   .table-container {
     height: auto;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
   }
 
   table {
     display: block;
-    overflow-x: auto;
-    white-space: nowrap;
+    width: 100%;
+    margin: 0;
   }
 
   th, td {
@@ -284,6 +305,7 @@ input {
 
   .content {
     padding: 0.5rem;
+    margin-top: 200px; /* ensure that the header does not cover the content */ 
   }
 
   header h1 {
@@ -305,5 +327,21 @@ input {
   th, td {
     font-size: 0.8em;
   }
-}
 
+  .table-container {
+    height: auto;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
+}

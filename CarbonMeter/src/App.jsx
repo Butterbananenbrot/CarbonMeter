@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'; // React Hooks
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // this import was tricky, needs <Route path=.. /> below
+import DOMPurify from 'dompurify'; // validate and sanitize inputs to prevent XSS attacks: https://www.npmjs.com/package/dompurify
 import './App.css';
 import Header from './Header';
 import Footer from './Footer';
@@ -9,15 +10,18 @@ import About from './About';
 import Services from './Services';
 import Contact from './Contact';
 
-// this file is the central node for the website(app)
+// dient dem Erkennen der Schriftkultur
+const getDirection = () => {
+  const rtlLanguages = ['ar', 'fa', 'he', 'ur']; // right-to-left for Arabaic, Farsi, Hebrew, Urdu
+  const lang = document.documentElement.lang;
+  return rtlLanguages.includes(lang) ? 'rtl' : 'ltr';
+};
 
-// using React constants for better readability
 const App = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState({ entity: '', showCountries: true, showCompanies: true });
   const [sort, setSort] = useState({ column: 'parent_entity', direction: 'asc' });
 
-  // using React hooks 
   useEffect(() => {
     const filteredData = emissionsData.filter(item => item.year === 2022);
     setData(filteredData);
@@ -25,7 +29,9 @@ const App = () => {
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
-    setFilter({ ...filter, [name]: value });
+    const sanitizedValue = DOMPurify.sanitize(value); // sanitize input
+    console.log('Sanitized Value:', sanitizedValue); // log the sanitized value for testing
+    setFilter({ ...filter, [name]: sanitizedValue });
   };
 
   const handleCheckboxChange = (event) => {
@@ -61,7 +67,7 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-        <Header />
+        <Header direction={getDirection()} />
         <main className="content">
           <Routes>
             <Route path="/" element={
