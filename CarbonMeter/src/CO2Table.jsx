@@ -7,7 +7,7 @@ const CO2Table = ({ data, onSortChange }) => {
         <thead>
           <tr>
             <th onClick={() => onSortChange('parent_entity')}>Entity</th>
-            <th onClick={() => onSortChange('total_emissions_MtCO2e')}>MtCO2 emitted</th>
+            <th onClick={() => onSortChange('total_emissions_MtCO2e')}>(MtCO<sub>2</sub>)e</th>
           </tr>
         </thead>
         <tbody>

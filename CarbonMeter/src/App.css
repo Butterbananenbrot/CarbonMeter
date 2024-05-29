@@ -1,4 +1,6 @@
-/* Global styles */
+/* this file provides styles for all components of the app */
+
+/* global styles */
 html, body, #root {
   height: 100%;
   margin: 0;
@@ -6,7 +8,7 @@ html, body, #root {
   font-size: 1rem;
 }
 
-/* App container */
+/* for the app container */
 .App {
   display: flex;
   flex-direction: column;
@@ -16,7 +18,7 @@ html, body, #root {
   padding: 0 1rem;
 }
 
-/* Header styles */
+/* for the header */
 header {
   background-color: #282c34;
   color: white;
@@ -78,7 +80,7 @@ header nav ul li a {
   font-size: 1em;
 }
 
-/* Main content styles */
+/* for the main content*/
 .content {
   flex: 1;
   display: flex;
@@ -107,7 +109,7 @@ h1 {
   text-align: center;
 }
 
-/* Filter styles */
+/* for the filter options */
 .filters {
   margin-bottom: 20px;
   display: flex;
@@ -136,7 +138,7 @@ h1 {
   margin-right: 10px;
 }
 
-/* Table styles */
+/* for the table */
 .table-container {
   height: auto;
   overflow-y: auto;
@@ -166,7 +168,7 @@ th {
   cursor: pointer;
 }
 
-/* Footer styles */
+/* for the footer */
 footer {
   background-color: #282c34;
   padding: 10px;
@@ -180,7 +182,7 @@ footer {
   box-sizing: border-box;
 }
 
-/* Input styles */
+/* for the search box*/
 input {
   margin-bottom: 10px;
   padding: 8px;
@@ -189,12 +191,12 @@ input {
   box-sizing: border-box;
 }
 
-/* Hidden elements */
+/* to hide data */
 .hidden {
   display: none;
 }
 
-/* Responsive styles */
+/* media queries: medium*/
 @media (max-width: 768px) {
 
   .subtitle {
@@ -261,6 +263,7 @@ input {
   }
 }
 
+/* media queries: small */
 @media (max-width: 480px) {
 
   .subtitle {
