@@ -9,24 +9,35 @@ import emissionsData from '/src/assets/countriesAndCompanies.json';
 import About from './About';
 import Services from './Services';
 import Contact from './Contact';
+import LocalMenu from './LocalMenu';
 
-// dient dem Erkennen der Schriftkultur
-const getDirection = () => {
-  const rtlLanguages = ['ar', 'fa', 'he', 'ur']; // right-to-left for Arabaic, Farsi, Hebrew, Urdu
-  const lang = document.documentElement.lang;
+// detects user text direction based on language
+/*
+const getDirection = (lang) => {
+  const rtlLanguages = ['ar', 'fa', 'he', 'ur']; // right-to-left for Arabic, Farsi, Hebrew, Urdu
   return rtlLanguages.includes(lang) ? 'rtl' : 'ltr';
 };
+*/
+const getDirection = () => {
+  const userLanguage = navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language;
+  const rtlLanguages = ['ar', 'fa', 'he', 'ur']; // right-to-left for Arabic, Farsi, Hebrew, Urdu
+  return rtlLanguages.some(lang => userLanguage.startsWith(lang)) ? 'rtl' : 'ltr';
+};
 
+// Zustandsverwaltung
 const App = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]); // React Hooks
   const [filter, setFilter] = useState({ entity: '', showCountries: true, showCompanies: true });
   const [sort, setSort] = useState({ column: 'parent_entity', direction: 'asc' });
+  const direction = getDirection();
 
-  useEffect(() => {
+  // select only 2022 data
+  useEffect(() => { 
     const filteredData = emissionsData.filter(item => item.year === 2022);
     setData(filteredData);
   }, []);
 
+  // this is called when the user types in the search input
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
     const sanitizedValue = DOMPurify.sanitize(value); // sanitize input
@@ -34,16 +45,19 @@ const App = () => {
     setFilter({ ...filter, [name]: sanitizedValue });
   };
 
+  // this is called when the user clicks on a checkbox
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
     setFilter({ ...filter, [name]: checked });
   };
 
+  // this is called when the user clicks on a column header
   const handleSortChange = (column) => {
     const direction = sort.direction === 'asc' ? 'desc' : 'asc';
     setSort({ column, direction });
   };
 
+  // toggle display of countries and companies, update data
   const filteredAndSortedData = data
     .filter(item => {
       const entityMatch = filter.entity === '' || item.parent_entity.toLowerCase().includes(filter.entity.toLowerCase());
@@ -68,49 +82,52 @@ const App = () => {
     <Router>
       <div className="App">
         <Header direction={getDirection()} />
-        <main className="content">
-          <Routes>
-            <Route path="/" element={
-              <>
-                <h1>CO<sub>2</sub> Emissions Data for 2022</h1>
-                <p className="subtitle">Based on the Carbon Majors <a href="https://carbonmajors.org/Methodology">dataset</a> of 122 emitting entities.</p>
-                <div className="filters">
-                  <label>
+        <div className={`main-layout ${direction}`}>
+          <LocalMenu direction={getDirection()} /> {}
+          <main className="content">
+            <Routes>
+              <Route path="/" element={
+                <>
+                  <h1>CO<sub>2</sub> Emissions Data for 2022</h1>
+                  <p className="subtitle">Based on the Carbon Majors <a href="https://carbonmajors.org/Methodology">dataset</a> of 122 emitting entities.</p>
+                  <div className="filters">
+                    <label>
+                      <input
+                        type="checkbox"
+                        name="showCountries"
+                        checked={filter.showCountries}
+                        onChange={handleCheckboxChange}
+                      />
+                      Show Countries
+                    </label>
+                    <label>
+                      <input
+                        type="checkbox"
+                        name="showCompanies"
+                        checked={filter.showCompanies}
+                        onChange={handleCheckboxChange}
+                      />
+                      Show Companies
+                    </label>
+                  </div>
+                  <div className="filters">
                     <input
-                      type="checkbox"
-                      name="showCountries"
-                      checked={filter.showCountries}
-                      onChange={handleCheckboxChange}
+                      type="text"
+                      name="entity"
+                      placeholder="Search for entity"
+                      value={filter.entity}
+                      onChange={handleFilterChange}
                     />
-                    Show Countries
-                  </label>
-                  <label>
-                    <input
-                      type="checkbox"
-                      name="showCompanies"
-                      checked={filter.showCompanies}
-                      onChange={handleCheckboxChange}
-                    />
-                    Show Companies
-                  </label>
-                </div>
-                <div className="filters">
-                  <input
-                    type="text"
-                    name="entity"
-                    placeholder="Search for entity"
-                    value={filter.entity}
-                    onChange={handleFilterChange}
-                  />
-                </div>
-                <CO2Table data={filteredAndSortedData} onSortChange={handleSortChange} />
-              </>
-            } />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
+                  </div>
+                  <CO2Table data={filteredAndSortedData} onSortChange={handleSortChange} />
+                </>
+              } />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </main>
+        </div>
         <Footer />
       </div>
     </Router>

@@ -1,13 +1,24 @@
-
 /* this file provides styles for all components of the app */
 
 /* global styles */
 html, body, #root {
+  background-color: rgb(46, 45, 45);
+  color: white;
   height: 100%;
   margin: 0;
   padding: 0;
   font-size: 1rem;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overflow-x: hidden;
+
+  /* Hide scrollbar*/
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+/* Hide scrollbar */
+html::-webkit-scrollbar, body::-webkit-scrollbar, #root::-webkit-scrollbar {
+  width: 0px; /* Chrome, Safari */
+  background: transparent; /* Optional: just make scrollbar invisible */
 }
 
 /* for the app container */
@@ -15,83 +26,38 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
   padding: 0 1rem;
   box-sizing: border-box; 
+  background-color: rgb(46, 45, 45);
 }
 
-/* for the header */
-header {
-  background-color: #282c34;
-  color: white;
+.main-layout {
   display: flex;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  box-sizing: border-box;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 2rem;
-  z-index: 1000;
-}
-
-.header-content {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.header-content-rtl {
-  flex-direction: row-reverse;
-}
-
-header .logo {
-  height: 2em;
-  margin-right: 1em;
-  vertical-align: middle;
-  transition: transform 0.3s, filter 0.3s;
-}
-
-.header-content-rtl .logo {
-  margin-right: 0;
-  margin-left: 1em;
-}
-
-header h1 {
-  display: flex;
-  align-items: center;
-  margin: 0;
-  font-size: 1.5em;
-}
-
-header nav {
-  flex-grow: 1;
-  display: flex;
-  justify-content: flex-end;
-}
-
-header nav ul {
-  list-style: none;
-  display: flex;
-  justify-content: space-around;
-  padding: 0;
-  margin: 0;
+  align-items: flex-start;
+  justify-content: center;
   width: 100%;
-  max-width: 600px;
+  margin-top: 65px;
 }
 
-header nav ul li {
-  margin: 0 1rem;
+/* setting the order of the local menu and content*/
+/* this depends on <div className={`main-layout ${direction}`}> */
+.main-layout.ltr .local-menu {
+  order: 1; /* localMenu first for ltr */
 }
 
-header nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-size: 1em;
+.main-layout.ltr .content {
+  order: 2; /* content second for ltr */
+}
+
+.main-layout.rtl .local-menu {
+  order: 2; /* localMenu second for rtl */
+}
+
+.main-layout.rtl .content {
+  order: 1; /* content first for rtl */
 }
 
 /* for the main content */
@@ -100,16 +66,14 @@ header nav ul li a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 2rem;
   width: 100%;
-  max-width: 1280px;
+  max-width: 1280px; 
   margin: 0 auto;
   box-sizing: border-box;
   text-align: center;
-  margin-top: 60px;
-  min-height: calc(100vh - 140px);
-  overflow-y: auto;
+  background-color: rgb(46, 45, 45);
 }
 
 h1 {
@@ -153,39 +117,6 @@ h1 {
   margin-right: 10px;
 }
 
-/* for the table */
-.table-container {
-  height: auto;
-  overflow-y: auto;  
-  overflow-x: auto;
-  width: 100%;
-  margin-top: 20px;
-  margin-bottom: 80px;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  color: #ffffff;
-  background-color: #15274d;
-  white-space: nowrap;
-  box-sizing: border-box;
-  margin: 0;
-}
-
-th, td {
-  padding: 8px;
-  font-size: 0.9em;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-th {
-  cursor: pointer;
-}
-
 /* for the footer */
 footer {
   background-color: #282c34;
@@ -214,9 +145,13 @@ input {
   display: none;
 }
 
+/* to prevent footer covering the table */
+.table-container {
+  margin-bottom: 50px;
+}
+
 /* media queries: medium */
 @media (max-width: 768px) {
-
   .subtitle {
     font-size: 1rem;
   }
@@ -229,36 +164,28 @@ input {
     font-size: 2rem;
   }
 
-  header, footer {
-    padding: 10px 1rem;
+  .main-layout {
+    flex-direction: column;
+    padding-top: 250px; /* Ensure space for fixed header */
+    margin-top: 15px;
   }
 
   .content {
     padding: 1rem;
-    margin-top: 200px; /* ensure that the header does not cover the content */ 
+    margin-top: 0; /* ensure the content is below the menu */
+    order: 2;
   }
 
-  header {
+  .filters {
     flex-direction: column;
-    align-items: flex-start;
   }
 
-  header .logo {
-    margin-right: 0;
-    margin-bottom: 10px;
-  }
-
-  header nav {
+  .filters input {
     width: 100%;
   }
 
-  header nav ul {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  header nav ul li {
-    margin: 0.5rem 0;
+  th, td {
+    font-size: 0.8em;
   }
 
   .table-container {
@@ -266,6 +193,7 @@ input {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     box-sizing: border-box;
+    margin-bottom: 180px;
   }
 
   table {
@@ -284,9 +212,9 @@ input {
   }
 }
 
+
 /* media queries: small */
 @media (max-width: 480px) {
-
   .subtitle {
     font-size: 0.9rem;
   }
@@ -299,21 +227,20 @@ input {
     font-size: 1.5rem;
   }
 
-  header, footer {
-    padding: 10px 0.5rem;
+  .main-layout.ltr {
+    flex-direction: column;
+    padding-top: 220px;
   }
 
+ .main-layout.rtl {
+    flex-direction: column-reverse;
+    padding-top: 220px;
+  }
+  
   .content {
     padding: 0.5rem;
-    margin-top: 200px; /* ensure that the header does not cover the content */ 
-  }
-
-  header h1 {
-    font-size: 1.2em;
-  }
-
-  header nav ul li a {
-    font-size: 0.9em;
+    margin-top: 0;
+    order: 2;
   }
 
   .filters {
@@ -337,6 +264,7 @@ input {
     margin-left: auto;
     margin-right: auto;
     box-sizing: border-box;
+    margin-bottom: 80px;
   }
 
   table {

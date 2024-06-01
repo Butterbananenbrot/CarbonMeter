@@ -1,0 +1,81 @@
+/* CO2Table styles */
+/* currently not used */
+
+
+.table-container {
+    height: auto;
+    overflow-y: auto;  
+    overflow-x: auto;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 80px;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #ffffff;
+    background-color: rgb(46, 45, 45);
+    white-space: nowrap;
+    box-sizing: border-box;
+    margin: 0;
+  }
+  
+  th, td {
+    padding: 8px;
+    font-size: 0.9em;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  th {
+    cursor: pointer;
+  }
+  
+  /* media queries: medium */
+  @media (max-width: 768px) {
+    .table-container {
+      height: auto;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      box-sizing: border-box;
+    }
+  
+    table {
+      display: block;
+      width: 100%;
+      margin: 0;
+    }
+  
+    th, td {
+      padding: 8px;
+    }
+  }
+  
+  /* media queries: small */
+  @media (max-width: 480px) {
+    .table-container {
+      height: auto;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-left: 0;
+      padding-right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      box-sizing: border-box;
+    }
+  
+    table {
+      display: block;
+      width: 100%;
+      margin: 0;
+    }
+  
+    th, td {
+      font-size: 0.8em;
+      padding: 8px;
+    }
+  }
+  

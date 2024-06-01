@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import thermometerIcon from '/src/assets/thermometer.svg';
+import './Header.css';
 
 const Header = ({ direction }) => {
   const isRtl = direction === 'rtl';
@@ -13,10 +13,11 @@ const Header = ({ direction }) => {
       </div>
       <nav>
         <ul>
-          <li><Link to="/">Emissions</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/services">Services</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
+          <li><a href="https://www.theguardian.com/environment/2024/apr/04/just-57-companies-linked-to-80-of-greenhouse-gas-emissions-since-2016"
+                      >The Guardian</a></li>
+          <li><a href="https://carbonmajors.org/">Carbon Majors</a></li>
+          <li><a href="https://edgar.jrc.ec.europa.eu/">EDGAR</a></li>
+          <li><a href="https://github.com/Butterbananenbrot/CarbonMeter">GitHub</a></li>
         </ul>
       </nav>
     </header>
@@ -24,34 +25,3 @@ const Header = ({ direction }) => {
 };
 
 export default Header;
-
-
-
-
-/*
-import React from 'react';
-import { Link } from 'react-router-dom';
-import thermometerIcon from '/src/assets/thermometer.svg';
-
-const Header = () => {
-  return (
-    <header>
-      <h1>
-        <img src={thermometerIcon} alt="Thermometer Icon" className="logo" />
-        CarbonMeter
-      </h1>
-      <nav>
-        <ul>
-          <li><Link to="/">Emissions</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/services">Services</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
-        </ul>
-      </nav>
-    </header>
-  );
-};
-
-export default Header;
-
-*/

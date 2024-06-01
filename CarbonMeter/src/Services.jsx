@@ -11,8 +11,13 @@ const Services = () => {
   <br />
   <p><strong>Are you a representative of a major carbon-emitting business?</strong></p>
   <p>We can support you in your efforts to shift the blame from the systemic to the individual level!</p>
+  <br />
+  <br /> 
+  <br />
 </div>
   );
 };
+
+/* extra line breaks to prevent the footer covering the text */
 
 export default Services;
