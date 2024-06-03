@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'; // React Hooks
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // this import was tricky, needs <Route path=.. /> below
+import { HashRouter  as Router, Route, Routes } from 'react-router-dom'; // this import was tricky, needs <Route path=.. /> below
 import DOMPurify from 'dompurify'; // validate and sanitize inputs to prevent XSS attacks: https://www.npmjs.com/package/dompurify
 import './App.css';
 import Header from './Header';
